@@ -173,7 +173,7 @@ namespace Dubai2022
         {
             double dbu = 0;
             string dbu2 = "";
-            string hi = input;
+            string inputclone = input;
             double rounding = 0;
             if(input == "452") { input = "451"; }
             try { dbu = Convert.ToDouble(input) / 4.52; } catch (Exception) { return; }
