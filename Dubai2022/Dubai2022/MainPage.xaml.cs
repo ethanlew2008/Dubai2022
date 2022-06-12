@@ -185,9 +185,9 @@ namespace Dubai2022
             }           
             catch (Exception) { Box.Text = "Number Too Big"; input = ""; }
             Box.Text = "That's About £";
-            if(Convert.ToInt32(hi) < 45) { Box.Text += dbu2.Remove(4); }
-            if(Convert.ToInt32(hi) > 45 && Convert.ToInt32(hi) < 452) { Box.Text += dbu2.Remove(5); }
-            else if(Convert.ToInt32(hi) > 452){ rounding = Convert.ToDouble(dbu2); Box.Text += Math.Round(rounding); }         
+            if(Convert.ToInt32(inputclone) < 45) { Box.Text += dbu2.Remove(4); }
+            if(Convert.ToInt32(inputclone) > 45 && Convert.ToInt32(inputclone) < 452) { Box.Text += dbu2.Remove(5); }
+            else if(Convert.ToInt32(inputclone) > 452){ rounding = Convert.ToDouble(dbu2); Box.Text += Math.Round(rounding); }         
         }
 
 
