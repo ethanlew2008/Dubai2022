@@ -48,9 +48,8 @@ namespace Dubai2022
                 Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
             }
             else { after = true; FlyDayButton.Text = "Flight"; }
-
-            BackgroundColor = Color.White;
             Box.TextColor = Color.Black;
+            BackgroundImageSource = "Backround4app1.png";
         }
 
         private void Button1_Clicked(object sender, EventArgs e)
