@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Dubai2022
 {
-
+    
 
 
     public partial class MainPage : ContentPage
@@ -23,6 +23,7 @@ namespace Dubai2022
         Int64 flighttime = 0;
         int co2 = 0;
         int hour = DateTime.Now.Hour;
+        int errors = 0;
 
         Stopwatch flight = new Stopwatch();
         TimeSpan spWorkMin;
@@ -32,7 +33,9 @@ namespace Dubai2022
         {
             InitializeComponent();
 
-            if(hour > 7 && hour < 18)
+            
+
+            if (hour > 7 && hour < 18)
             {       
                 #region ButtonColor
                 Button0.BackgroundColor = Color.Orange;
@@ -56,20 +59,20 @@ namespace Dubai2022
             else
             {
                 #region ButtonColor
-                Button0.BackgroundColor = Color.Purple;
-                Button1.BackgroundColor = Color.Purple;
-                Button2.BackgroundColor = Color.Purple;
-                Button3.BackgroundColor = Color.Purple;
-                Button4.BackgroundColor = Color.Purple;
-                Button5.BackgroundColor = Color.Purple;
-                Button6.BackgroundColor = Color.Purple;
-                Button7.BackgroundColor = Color.Purple;
-                Button8.BackgroundColor = Color.Purple;
-                Button9.BackgroundColor = Color.Purple;
+                Button0.BackgroundColor = Color.MediumPurple;
+                Button1.BackgroundColor = Color.MediumPurple;
+                Button2.BackgroundColor = Color.MediumPurple;
+                Button3.BackgroundColor = Color.MediumPurple;
+                Button4.BackgroundColor = Color.MediumPurple;
+                Button5.BackgroundColor = Color.MediumPurple;
+                Button6.BackgroundColor = Color.MediumPurple;
+                Button7.BackgroundColor = Color.MediumPurple;
+                Button8.BackgroundColor = Color.MediumPurple;
+                Button9.BackgroundColor = Color.MediumPurple;
 
-                FlyDayButton.BackgroundColor = Color.Purple;
-                GBPButton.BackgroundColor = Color.Purple;
-                ButtonDel.BackgroundColor = Color.Purple;
+                FlyDayButton.BackgroundColor = Color.MediumPurple;
+                GBPButton.BackgroundColor = Color.MediumPurple;
+                ButtonDel.BackgroundColor = Color.MediumPurple;
                 Dotbutton.BackgroundColor = Color.Purple;
                 #endregion
                 BackgroundImageSource = "Backround4appnight.png";
@@ -90,6 +93,8 @@ namespace Dubai2022
             }
             else {before = false; FlyDayButton.Text = "Flight"; }
         }
+
+         
 
         private void Button1_Clicked(object sender, EventArgs e)
         {
@@ -165,11 +170,10 @@ namespace Dubai2022
         }
 
         private void FlyDayButton_Clicked(object sender, EventArgs e)
-        {
-            input = "";
-
+        {           
             if (Box.Text == "1622") { dev = true; FlyDayButton.Text = "Flight"; }
-
+            if(Box.Text == "7344") { Box.Text = ""; Box.Text += errors; input = ""; return; }
+            input = ""; Box.Text = "";
 
             if (before && dev == false)
             {
@@ -179,7 +183,7 @@ namespace Dubai2022
             }
             else
             {
-                if (!flight.IsRunning) { flight.Start(); Box.Text = "Flight Started"; }
+                if (!flight.IsRunning) { flight.Start(); Box.Text = "Flight Started";}
                 else
                 {
                     flighttime = 25800000 - flight.ElapsedMilliseconds;
@@ -202,7 +206,7 @@ namespace Dubai2022
 
         private void SOSButton_Clicked(object sender, EventArgs e)
         {
-            input = "";
+            input = ""; Box.Text = "";
             Box.Text = "Police = 999\nAmbulance = 998\n CoastGuard = 996";
         }
 
@@ -213,18 +217,23 @@ namespace Dubai2022
             string inputclone = input;
             double rounding = 0;
             if(input == "452") { input = "451"; }
-            try { dbu = Convert.ToDouble(input) / 4.52; } catch (Exception) { return; }
+            try { dbu = Convert.ToDouble(input) / 4.52; } catch (Exception) { errors++; return; }
             Box.Text = "";
             input = "";
             try
             {
                 dbu2 = Convert.ToString(dbu);
             }           
-            catch (Exception) { Box.Text = "Number Too Big"; input = ""; }
+            catch (Exception) { Box.Text = "Number Too Big"; input = ""; errors++; }
             Box.Text = "That's About £";
-            if(Convert.ToInt32(inputclone) < 45) { Box.Text += dbu2.Remove(4); }
-            else if(Convert.ToInt32(inputclone) > 45 && Convert.ToInt32(inputclone) < 452) { Box.Text += dbu2.Remove(5); }
-            else if(Convert.ToInt32(inputclone) > 452){ rounding = Convert.ToDouble(dbu2); Box.Text += Math.Round(rounding); }         
+            try
+            {
+                if (Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) < 45) { Box.Text += dbu2.Remove(4); }
+                else if (Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) > 45 && Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) < 452) { Box.Text += dbu2.Remove(5); }
+                else if (Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) > 452) { rounding = Convert.ToDouble(dbu2); Box.Text += Math.Round(rounding); }
+            }
+            catch (Exception) { Box.Text = "Number Too Big"; input = ""; errors++; }
+                  
         }
 
 
