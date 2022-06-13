@@ -15,41 +15,80 @@ namespace Dubai2022
 
     public partial class MainPage : ContentPage
     {
-
-
         string input = "";
 
         bool before = false;
-        bool after = false;
         bool dev = false;
 
         Int64 flighttime = 0;
         int co2 = 0;
+        int hour = DateTime.Now.Hour;
 
         Stopwatch flight = new Stopwatch();
         TimeSpan spWorkMin;
         string workHours;
 
-
         public MainPage()
         {
             InitializeComponent();
+
+            if(hour > 7 && hour < 18)
+            {       
+                #region ButtonColor
+                Button0.BackgroundColor = Color.Orange;
+                Button1.BackgroundColor = Color.Orange;
+                Button2.BackgroundColor = Color.Orange;
+                Button3.BackgroundColor = Color.Orange;
+                Button4.BackgroundColor = Color.Orange;
+                Button5.BackgroundColor = Color.Orange;
+                Button6.BackgroundColor = Color.Orange;
+                Button7.BackgroundColor = Color.Orange;
+                Button8.BackgroundColor = Color.Orange;
+                Button9.BackgroundColor = Color.Orange;
+
+                FlyDayButton.BackgroundColor = Color.Orange;
+                GBPButton.BackgroundColor = Color.Orange;
+                ButtonDel.BackgroundColor = Color.Orange;
+                Dotbutton.BackgroundColor = Color.Orange;
+                #endregion
+                BackgroundImageSource = "Backround4app1.png";
+            }
+            else
+            {
+                #region ButtonColor
+                Button0.BackgroundColor = Color.Purple;
+                Button1.BackgroundColor = Color.Purple;
+                Button2.BackgroundColor = Color.Purple;
+                Button3.BackgroundColor = Color.Purple;
+                Button4.BackgroundColor = Color.Purple;
+                Button5.BackgroundColor = Color.Purple;
+                Button6.BackgroundColor = Color.Purple;
+                Button7.BackgroundColor = Color.Purple;
+                Button8.BackgroundColor = Color.Purple;
+                Button9.BackgroundColor = Color.Purple;
+
+                FlyDayButton.BackgroundColor = Color.Purple;
+                GBPButton.BackgroundColor = Color.Purple;
+                ButtonDel.BackgroundColor = Color.Purple;
+                Dotbutton.BackgroundColor = Color.Purple;
+                #endregion
+                BackgroundImageSource = "Backround4appnight.png";
+            }
+
+
+
             int day = DateTime.Now.Day;
             int month = DateTime.Now.Month;
             int year = DateTime.Now.Year;
 
             if (day < 20 && month == 8 && year == 2022 || month < 8 && year == 2022)
             {
-                before = true;
-                FlyDayButton.Text = "Days";
-
+                before = true; FlyDayButton.Text = "Days";
                 DateTime futurDate = Convert.ToDateTime("20/08/2022");
                 DateTime TodayDate = DateTime.Now;
                 Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
             }
-            else { after = true; FlyDayButton.Text = "Flight"; }
-            Box.TextColor = Color.Black;
-            BackgroundImageSource = "Backround4app1.png";
+            else {before = false; FlyDayButton.Text = "Flight"; }
         }
 
         private void Button1_Clicked(object sender, EventArgs e)
@@ -144,8 +183,7 @@ namespace Dubai2022
                 else
                 {
                     flighttime = 25800000 - flight.ElapsedMilliseconds;
-                    flighttime /= 1000;
-                    flighttime /= 60;
+                    flighttime /= 1000; flighttime /= 60;
                     co2 = 21 * Convert.ToInt32(flight.ElapsedMilliseconds / 1000) / 60;
 
                     spWorkMin = TimeSpan.FromMinutes(flighttime);
@@ -185,7 +223,7 @@ namespace Dubai2022
             catch (Exception) { Box.Text = "Number Too Big"; input = ""; }
             Box.Text = "That's About £";
             if(Convert.ToInt32(inputclone) < 45) { Box.Text += dbu2.Remove(4); }
-            if(Convert.ToInt32(inputclone) > 45 && Convert.ToInt32(inputclone) < 452) { Box.Text += dbu2.Remove(5); }
+            else if(Convert.ToInt32(inputclone) > 45 && Convert.ToInt32(inputclone) < 452) { Box.Text += dbu2.Remove(5); }
             else if(Convert.ToInt32(inputclone) > 452){ rounding = Convert.ToDouble(dbu2); Box.Text += Math.Round(rounding); }         
         }
 
