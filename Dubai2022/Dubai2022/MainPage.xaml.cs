@@ -19,8 +19,10 @@ namespace Dubai2022
 
         bool before = false;
         bool dev = false;
+        bool BST = false;
 
         Int64 flighttime = 0;
+
         int co2 = 0;
         int hour = DateTime.Now.Hour;
         int errors = 0;
@@ -29,13 +31,22 @@ namespace Dubai2022
         TimeSpan spWorkMin;
         string workHours;
 
+        int min = DateTime.Now.Minute;
+        int hours = DateTime.Now.Hour;
+        int dubaihour = 0;
+        int londonhour = 0;
+
+        int day = 0;
+        int month = 0;
+        int year = 0;
+
         public MainPage()
         {
             InitializeComponent();
 
             
 
-            if (hour > 7 && hour < 18)
+            if (hour > 7 && hour < 19)
             {       
                 #region ButtonColor
                 Button0.BackgroundColor = Color.Orange;
@@ -53,6 +64,7 @@ namespace Dubai2022
                 GBPButton.BackgroundColor = Color.Orange;
                 ButtonDel.BackgroundColor = Color.Orange;
                 Dotbutton.BackgroundColor = Color.Orange;
+                TimeButton.BackgroundColor = Color.Orange;
                 #endregion
                 BackgroundImageSource = "Backround4app1.png";
             }
@@ -73,16 +85,17 @@ namespace Dubai2022
                 FlyDayButton.BackgroundColor = Color.MediumPurple;
                 GBPButton.BackgroundColor = Color.MediumPurple;
                 ButtonDel.BackgroundColor = Color.MediumPurple;
-                Dotbutton.BackgroundColor = Color.Purple;
+                Dotbutton.BackgroundColor = Color.MediumPurple;
+                TimeButton.BackgroundColor = Color.MediumPurple;
                 #endregion
                 BackgroundImageSource = "Backround4appnight.png";
             }
 
 
 
-            int day = DateTime.Now.Day;
-            int month = DateTime.Now.Month;
-            int year = DateTime.Now.Year;
+             day = DateTime.Now.Day;
+             month = DateTime.Now.Month;
+             year = DateTime.Now.Year;
 
             if (day < 20 && month == 8 && year == 2022 || month < 8 && year == 2022)
             {
@@ -91,7 +104,8 @@ namespace Dubai2022
                 DateTime TodayDate = DateTime.Now;
                 Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
             }
-            else {before = false; FlyDayButton.Text = "Flight"; }
+            else if(month > 8 && day > 28) {FlyDayButton.Text = "Flight"; }
+            else if(year == 2022 && month == 8 && day > 19 && day < 28) {FlyDayButton.Text = "Flight"; }
         }
 
          
@@ -188,8 +202,8 @@ namespace Dubai2022
                 {
                     flighttime = 25800000 - flight.ElapsedMilliseconds;
                     flighttime /= 1000; flighttime /= 60;
+                    flighttime *= 100;
                     co2 = 21 * Convert.ToInt32(flight.ElapsedMilliseconds / 1000) / 60;
-
                     spWorkMin = TimeSpan.FromMinutes(flighttime);
                     workHours = spWorkMin.ToString(@"hh\:mm");
                     input = workHours;
@@ -236,6 +250,36 @@ namespace Dubai2022
                   
         }
 
+        private void TimeButton_Clicked(object sender, EventArgs e)
+        {
+            Box.Text = "";
+            input = "";
 
+            if (month >= 3 && month <= 10) { BST = true; }
+
+            if (BST)
+            {
+                if (before) { londonhour = DateTime.Now.Hour; dubaihour = londonhour + 3; }
+                else { dubaihour = DateTime.Now.Hour; londonhour = dubaihour - 3; }
+            }
+            else
+            {
+                if (before) { londonhour = DateTime.Now.Hour; dubaihour = londonhour + 4; }
+                else { dubaihour = DateTime.Now.Hour; londonhour = dubaihour - 4; }
+            }
+            
+            if(londonhour > 24) { londonhour -= 12; }
+            if(dubaihour > 24) { dubaihour -= 12; }
+
+            Box.Text += "London:";
+            Box.Text += londonhour;
+            Box.Text += ":";
+            Box.Text += DateTime.Now.Minute;
+
+            Box.Text += "\nDubai:";
+            Box.Text += dubaihour;
+            Box.Text += ":";
+            Box.Text += DateTime.Now.Minute;
+        }
     }
 }
