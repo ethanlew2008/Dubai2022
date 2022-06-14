@@ -268,8 +268,8 @@ namespace Dubai2022
                 else { dubaihour = DateTime.Now.Hour; londonhour = dubaihour - 4; }
             }
             
-            if(londonhour > 24) { londonhour -= 12; }
-            if(dubaihour > 24) { dubaihour -= 12; }
+            if(londonhour > 24) { londonhour -= 24; }
+            if(dubaihour > 24) { dubaihour -= 24; }
 
             Box.Text += "London:";
             Box.Text += londonhour;
