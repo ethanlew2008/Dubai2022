@@ -231,7 +231,7 @@ namespace Dubai2022
             string inputclone = input;
             double rounding = 0;
             if(input == "452") { input = "451"; }
-            try { dbu = Convert.ToDouble(input) / 4.52; } catch (Exception) { errors++; return; }
+            try { dbu = Convert.ToDouble(input) / 4.54; } catch (Exception) { errors++; return; }
             Box.Text = "";
             input = "";
             try
@@ -268,8 +268,8 @@ namespace Dubai2022
                 else { dubaihour = DateTime.Now.Hour; londonhour = dubaihour - 4; }
             }
             
-            if(londonhour > 24) { londonhour -= 24; }
-            if(dubaihour > 24) { dubaihour -= 24; }
+            if(londonhour >= 24) { londonhour -= 24; }
+            if(dubaihour >= 24) { dubaihour -= 24; }
 
             Box.Text += "London:";
             Box.Text += londonhour;
