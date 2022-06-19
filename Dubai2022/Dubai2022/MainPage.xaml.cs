@@ -65,6 +65,7 @@ namespace Dubai2022
                 ButtonDel.BackgroundColor = Color.Orange;
                 Dotbutton.BackgroundColor = Color.Orange;
                 TimeButton.BackgroundColor = Color.Orange;
+                FlipButton.BackgroundColor = Color.Orange;
                 #endregion
                 BackgroundImageSource = "Backround4app1.png";
             }
@@ -87,6 +88,7 @@ namespace Dubai2022
                 ButtonDel.BackgroundColor = Color.MediumPurple;
                 Dotbutton.BackgroundColor = Color.MediumPurple;
                 TimeButton.BackgroundColor = Color.MediumPurple;
+                FlipButton.BackgroundColor = Color.MediumPurple;
                 #endregion
                 BackgroundImageSource = "Backround4appnight.png";
             }
@@ -202,7 +204,6 @@ namespace Dubai2022
                 {
                     flighttime = 25800000 - flight.ElapsedMilliseconds;
                     flighttime /= 1000; flighttime /= 60;
-                    flighttime *= 100;
                     co2 = 21 * Convert.ToInt32(flight.ElapsedMilliseconds / 1000) / 60;
                     spWorkMin = TimeSpan.FromMinutes(flighttime);
                     workHours = spWorkMin.ToString(@"hh\:mm");
@@ -231,14 +232,14 @@ namespace Dubai2022
             string inputclone = input;
             double rounding = 0;
             if(input == "452") { input = "451"; }
+
             try { dbu = Convert.ToDouble(input) / 4.54; } catch (Exception) { errors++; return; }
+
             Box.Text = "";
             input = "";
-            try
-            {
-                dbu2 = Convert.ToString(dbu);
-            }           
-            catch (Exception) { Box.Text = "Number Too Big"; input = ""; errors++; }
+    
+            try{ dbu2 = Convert.ToString(dbu); } catch (Exception) { Box.Text = "Number Too Big"; input = ""; errors++; }
+
             Box.Text = "That's About £";
             try
             {
@@ -280,6 +281,14 @@ namespace Dubai2022
             Box.Text += dubaihour;
             Box.Text += ":";
             Box.Text += DateTime.Now.Minute;
+        }
+
+        private void FlipButton_Clicked(object sender, EventArgs e)
+        {
+            input = "";
+            Random random = new Random(); int rng = random.Next(1, 3);
+            if(rng == 1) { Box.Text = "Heads"; }
+            else { Box.Text = "Tails"; }
         }
     }
 }
