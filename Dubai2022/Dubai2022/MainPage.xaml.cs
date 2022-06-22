@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 using Xamarin.Forms;
+using System.Globalization;
 
 namespace Dubai2022
 {
@@ -227,28 +228,16 @@ namespace Dubai2022
 
         private void GBPButton_Clicked(object sender, EventArgs e)
         {
+            try { Convert.ToDouble(input); }
+            catch (Exception) { errors++; Box.Text = "Number Too Big"; return; }
+          
             double dbu = 0;
-            string dbu2 = "";
-            string inputclone = input;
-            double rounding = 0;
-            if(input == "452") { input = "451"; }
 
-            try { dbu = Convert.ToDouble(input) / 4.54; } catch (Exception) { errors++; return; }
-
-            Box.Text = "";
+            dbu = Convert.ToDouble(input) / 4.54;
+            string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
+            Box.Text =  "That's About " + cultures;
             input = "";
-    
-            try{ dbu2 = Convert.ToString(dbu); } catch (Exception) { Box.Text = "Number Too Big"; input = ""; errors++; }
 
-            Box.Text = "That's About £";
-            try
-            {
-                if (Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) < 45) { Box.Text += dbu2.Remove(4); }
-                else if (Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) > 45 && Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) < 452) { Box.Text += dbu2.Remove(5); }
-                else if (Convert.ToInt32(Math.Round(Convert.ToDecimal(inputclone))) > 452) { rounding = Convert.ToDouble(dbu2); Box.Text += Math.Round(rounding); }
-            }
-            catch (Exception) { Box.Text = "Number Too Big"; input = ""; errors++; }
-                  
         }
 
         private void TimeButton_Clicked(object sender, EventArgs e)
