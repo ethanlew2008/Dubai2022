@@ -45,8 +45,6 @@ namespace Dubai2022
         {
             InitializeComponent();
 
-            
-
             if (hour > 7 && hour < 19)
             {       
                 #region ButtonColor
@@ -200,7 +198,7 @@ namespace Dubai2022
             }
             else
             {
-                if (!flight.IsRunning) { flight.Start(); Box.Text = "Flight Started";}
+                if (!flight.IsRunning) { flight.Start(); Box.Text = "Flight Started"; }
                 else
                 {
                     flighttime = 25800000 - flight.ElapsedMilliseconds;
@@ -279,5 +277,7 @@ namespace Dubai2022
             if(rng == 1) { Box.Text = "Heads"; }
             else { Box.Text = "Tails"; }
         }
+
+       
     }
 }
