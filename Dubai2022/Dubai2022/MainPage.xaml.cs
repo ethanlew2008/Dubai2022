@@ -229,7 +229,7 @@ namespace Dubai2022
         private void GBPButton_Clicked(object sender, EventArgs e)
         {
             try { Convert.ToDouble(input); }
-            catch (Exception) { errors++; Box.Text = "Number Too Big"; return; }
+            catch (Exception) { errors++; Box.Text = "Number Too Big"; input = ""; return; }
           
             double dbu = 0;
 
