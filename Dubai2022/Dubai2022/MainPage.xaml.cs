@@ -8,6 +8,8 @@ using System.Threading;
 using System.Diagnostics;
 using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms.PlatformConfiguration;
+using Android.Media;
 
 namespace Dubai2022
 {
@@ -21,14 +23,19 @@ namespace Dubai2022
         bool before = false;
         bool dev = false;
         bool BST = false;
+        
 
         Int64 flighttime = 0;
 
         int co2 = 0;
         int hour = DateTime.Now.Hour;
         int errors = 0;
+        int delpress = 0;
+        int delpress2 = 0;
 
+        
         Stopwatch flight = new Stopwatch();
+        Stopwatch deldouble = new Stopwatch();
         TimeSpan spWorkMin;
         string workHours;
 
@@ -66,7 +73,7 @@ namespace Dubai2022
                 TimeButton.BackgroundColor = Color.Orange;
                 FlipButton.BackgroundColor = Color.Orange;
                 #endregion
-                BackgroundImageSource = "Backround4app1.png";
+                BackgroundImageSource = "Backround4app1.png";               
             }
             else
             {
@@ -179,9 +186,38 @@ namespace Dubai2022
 
         private void ButtonDel_Clicked(object sender, EventArgs e)
         {
-            string ostr = "";
-            try { ostr = input.Remove(input.Length - 1, 1); } catch (Exception) { return; }
-            input = ostr; Box.Text = input;
+            if (deldouble.IsRunning)
+            {
+                if(deldouble.ElapsedMilliseconds - 220 < 0) 
+                {
+                    delpress++;
+
+                    if(delpress >= 2)
+                    {
+                        Box.Text = "";
+                        input = "";
+
+                        delpress = 0;
+                        deldouble.Stop();
+                    }
+                }
+                else
+                {
+                    string ostr = "";
+                    try { ostr = input.Remove(input.Length - 1, 1); } catch (Exception) { return; }
+                    input = ostr; Box.Text = input;
+                    deldouble.Restart();
+                }
+                
+            }
+            else
+            {
+                deldouble.Start();
+                string ostr = "";
+                try { ostr = input.Remove(input.Length - 1, 1); } catch (Exception) { return; }
+                input = ostr; Box.Text = input;
+                deldouble.Start();
+            }
         }
 
         private void FlyDayButton_Clicked(object sender, EventArgs e)
@@ -214,7 +250,7 @@ namespace Dubai2022
                 }
             }
 
-
+            
 
         }
 
@@ -231,7 +267,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.54;
+            dbu = Convert.ToDouble(input) / 4.45;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             Box.Text =  "That's About " + cultures;
             input = "";
@@ -277,7 +313,5 @@ namespace Dubai2022
             if(rng == 1) { Box.Text = "Heads"; }
             else { Box.Text = "Tails"; }
         }
-
-       
     }
 }
