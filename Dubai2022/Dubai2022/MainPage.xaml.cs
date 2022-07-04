@@ -36,6 +36,7 @@ namespace Dubai2022
         
         Stopwatch flight = new Stopwatch();
         Stopwatch deldouble = new Stopwatch();
+        Stopwatch sleep = new Stopwatch(); double sleephours = 0;
         TimeSpan spWorkMin;
         string workHours;
 
@@ -72,6 +73,7 @@ namespace Dubai2022
                 Dotbutton.BackgroundColor = Color.Orange;
                 TimeButton.BackgroundColor = Color.Orange;
                 FlipButton.BackgroundColor = Color.Orange;
+                SleepButton.BackgroundColor = Color.Orange;
                 #endregion
                 BackgroundImageSource = "Backround4app1.png";               
             }
@@ -95,6 +97,7 @@ namespace Dubai2022
                 Dotbutton.BackgroundColor = Color.MediumPurple;
                 TimeButton.BackgroundColor = Color.MediumPurple;
                 FlipButton.BackgroundColor = Color.MediumPurple;
+                SleepButton.BackgroundColor = Color.MediumPurple;
                 #endregion
                 BackgroundImageSource = "Backround4appnight.png";
             }
@@ -278,6 +281,8 @@ namespace Dubai2022
         {
             Box.Text = "";
             input = "";
+            int min = DateTime.Now.Minute;
+            string minstring = "";
 
             if (month >= 3 && month <= 10) { BST = true; }
 
@@ -295,15 +300,11 @@ namespace Dubai2022
             if(londonhour >= 24) { londonhour -= 24; }
             if(dubaihour >= 24) { dubaihour -= 24; }
 
-            Box.Text += "London:";
-            Box.Text += londonhour;
-            Box.Text += ":";
-            Box.Text += DateTime.Now.Minute;
+            if (min.ToString().Length == 1 && min >= 10) { minstring = Convert.ToString(min) + "0"; }
+            if (min.ToString().Length == 1 && min < 10) { minstring = "0" + Convert.ToString(min); }
 
-            Box.Text += "\nDubai:";
-            Box.Text += dubaihour;
-            Box.Text += ":";
-            Box.Text += DateTime.Now.Minute;
+            Box.Text += "Dubai:" + dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
+            Box.Text += "\nLondon:" + londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }            
         }
 
         private void FlipButton_Clicked(object sender, EventArgs e)
@@ -312,6 +313,79 @@ namespace Dubai2022
             Random random = new Random(); int rng = random.Next(1, 3);
             if(rng == 1) { Box.Text = "Heads"; }
             else { Box.Text = "Tails"; }
+        }
+
+        private void SleepButton_Clicked(object sender, EventArgs e)
+        {
+            input = "";
+            if (!sleep.IsRunning) { sleep.Start(); Box.Text = "Goodnight"; SleepButton.Text = "Stop"; BackgroundImageSource = "Backround4appnight.png"; }
+            else
+            {
+
+                
+
+                sleep.Stop();
+                Box.Text = "Good Morning\n";
+                sleephours = sleep.ElapsedMilliseconds / 1000; sleephours /= 60;
+
+                TimeSpan spWorkMin = TimeSpan.FromMinutes(sleephours);
+                string workHours = spWorkMin.ToString(@"hh\:mm");
+                Box.Text += "You Slept " + workHours;
+                Box.Text += "\nYou took " + Convert.ToInt32(sleephours * 16) + " Breaths";
+                SleepButton.Text = "Sleep";
+
+                int hour = DateTime.Now.Hour;
+
+
+                if (hour > 7 && hour < 19)
+                {
+                    #region ButtonColor
+                    Button0.BackgroundColor = Color.Orange;
+                    Button1.BackgroundColor = Color.Orange;
+                    Button2.BackgroundColor = Color.Orange;
+                    Button3.BackgroundColor = Color.Orange;
+                    Button4.BackgroundColor = Color.Orange;
+                    Button5.BackgroundColor = Color.Orange;
+                    Button6.BackgroundColor = Color.Orange;
+                    Button7.BackgroundColor = Color.Orange;
+                    Button8.BackgroundColor = Color.Orange;
+                    Button9.BackgroundColor = Color.Orange;
+
+                    FlyDayButton.BackgroundColor = Color.Orange;
+                    GBPButton.BackgroundColor = Color.Orange;
+                    ButtonDel.BackgroundColor = Color.Orange;
+                    Dotbutton.BackgroundColor = Color.Orange;
+                    TimeButton.BackgroundColor = Color.Orange;
+                    FlipButton.BackgroundColor = Color.Orange;
+                    SleepButton.BackgroundColor = Color.Orange;
+                    #endregion
+                    BackgroundImageSource = "Backround4app1.png";
+                }
+                else
+                {
+                    #region ButtonColor
+                    Button0.BackgroundColor = Color.MediumPurple;
+                    Button1.BackgroundColor = Color.MediumPurple;
+                    Button2.BackgroundColor = Color.MediumPurple;
+                    Button3.BackgroundColor = Color.MediumPurple;
+                    Button4.BackgroundColor = Color.MediumPurple;
+                    Button5.BackgroundColor = Color.MediumPurple;
+                    Button6.BackgroundColor = Color.MediumPurple;
+                    Button7.BackgroundColor = Color.MediumPurple;
+                    Button8.BackgroundColor = Color.MediumPurple;
+                    Button9.BackgroundColor = Color.MediumPurple;
+
+                    FlyDayButton.BackgroundColor = Color.MediumPurple;
+                    GBPButton.BackgroundColor = Color.MediumPurple;
+                    ButtonDel.BackgroundColor = Color.MediumPurple;
+                    Dotbutton.BackgroundColor = Color.MediumPurple;
+                    TimeButton.BackgroundColor = Color.MediumPurple;
+                    FlipButton.BackgroundColor = Color.MediumPurple;
+                    SleepButton.BackgroundColor = Color.MediumPurple;
+                    #endregion
+                    BackgroundImageSource = "Backround4appnight.png";
+                }
+            }
         }
     }
 }
