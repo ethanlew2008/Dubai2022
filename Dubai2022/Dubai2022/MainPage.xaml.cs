@@ -270,7 +270,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.45;
+            dbu = Convert.ToDouble(input) / 4.38 ;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             Box.Text =  "That's About " + cultures;
             input = "";
@@ -320,10 +320,7 @@ namespace Dubai2022
             input = "";
             if (!sleep.IsRunning) { sleep.Start(); Box.Text = "Goodnight"; SleepButton.Text = "Stop"; BackgroundImageSource = "Backround4appnight.png"; }
             else
-            {
-
-                
-
+            { 
                 sleep.Stop();
                 Box.Text = "Good Morning\n";
                 sleephours = sleep.ElapsedMilliseconds / 1000; sleephours /= 60;
