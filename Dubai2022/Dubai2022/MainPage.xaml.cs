@@ -270,7 +270,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.38 ;
+            dbu = Convert.ToDouble(input) / 4.35 ;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             Box.Text =  "That's About " + cultures;
             input = "";
@@ -318,7 +318,34 @@ namespace Dubai2022
         private void SleepButton_Clicked(object sender, EventArgs e)
         {
             input = "";
-            if (!sleep.IsRunning) { sleep.Start(); Box.Text = "Goodnight"; SleepButton.Text = "Stop"; BackgroundImageSource = "Backround4appnight.png"; }
+            if (!sleep.IsRunning) 
+            {
+                Box.Text = "Goodnight";
+                SleepButton.Text = "Stop";
+                BackgroundImageSource = "Backround4appnight.png";
+                sleep.Start();
+                #region ButtonColor
+                Button0.BackgroundColor = Color.MediumPurple;
+                Button1.BackgroundColor = Color.MediumPurple;
+                Button2.BackgroundColor = Color.MediumPurple;
+                Button3.BackgroundColor = Color.MediumPurple;
+                Button4.BackgroundColor = Color.MediumPurple;
+                Button5.BackgroundColor = Color.MediumPurple;
+                Button6.BackgroundColor = Color.MediumPurple;
+                Button7.BackgroundColor = Color.MediumPurple;
+                Button8.BackgroundColor = Color.MediumPurple;
+                Button9.BackgroundColor = Color.MediumPurple;
+
+                FlyDayButton.BackgroundColor = Color.MediumPurple;
+                GBPButton.BackgroundColor = Color.MediumPurple;
+                ButtonDel.BackgroundColor = Color.MediumPurple;
+                Dotbutton.BackgroundColor = Color.MediumPurple;
+                TimeButton.BackgroundColor = Color.MediumPurple;
+                FlipButton.BackgroundColor = Color.MediumPurple;
+                SleepButton.BackgroundColor = Color.MediumPurple;
+                #endregion
+            }       
+            
             else
             { 
                 sleep.Stop();
