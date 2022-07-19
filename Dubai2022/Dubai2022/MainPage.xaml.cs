@@ -270,7 +270,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.35 ;
+            dbu = Convert.ToDouble(input) / 4.41;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             Box.Text =  "That's About " + cultures;
             input = "";
@@ -302,6 +302,9 @@ namespace Dubai2022
 
             if (min.ToString().Length == 1 && min >= 10) { minstring = Convert.ToString(min) + "0"; }
             if (min.ToString().Length == 1 && min < 10) { minstring = "0" + Convert.ToString(min); }
+
+            if (londonhour < 0) { londonhour *= -1; }
+            if (dubaihour < 0) { dubaihour *= -1; }
 
             Box.Text += "Dubai:" + dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
             Box.Text += "\nLondon:" + londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }            
