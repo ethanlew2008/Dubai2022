@@ -307,8 +307,14 @@ namespace Dubai2022
             if (londonhour < 0) { londonhour *= -1; }
             if (dubaihour < 0) { dubaihour *= -1; }
 
-            Box.Text += "Dubai:" + dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
-            Box.Text += "\nLondon:" + londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }            
+            if (arabic == false) { Box.Text += "Dubai:"; } else { Box.Text += "دبي:"; }
+            Box.Text += dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
+
+            if (arabic == false) { Box.Text += "\nLondon:"; } else { Box.Text += "\nلندن:"; }
+            Box.Text += londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
+            
+
+
         }
 
         private void FlipButton_Clicked(object sender, EventArgs e)
