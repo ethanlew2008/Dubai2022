@@ -234,11 +234,11 @@ namespace Dubai2022
             {
                 DateTime futurDate = Convert.ToDateTime("20/08/2022");
                 DateTime TodayDate = DateTime.Now;
-                Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
+                Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += "Days";
             }
             else
             {
-                if (!flight.IsRunning) { flight.Start(); Box.Text = "Flight Started"; }
+                if (!flight.IsRunning) { flight.Start(); if (arabic == false) { Box.Text = "Flight Started"; } else { Box.Text = "بدأت الرحلة"; } }
                 else
                 {
                     flighttime = 25800000 - flight.ElapsedMilliseconds;
@@ -249,7 +249,7 @@ namespace Dubai2022
                     input = workHours;
                     Box.Text = input;
                     Box.Text += "\n" + co2;
-                    Box.Text += "KG of CO2";
+                    if (arabic == false) { Box.Text += "KG of CO2"; } else { Box.Text += "KG من CO2"; }
                     input = "";
                 }
             }
@@ -261,19 +261,20 @@ namespace Dubai2022
         private void SOSButton_Clicked(object sender, EventArgs e)
         {
             input = ""; Box.Text = "";
-            Box.Text = "Police = 999\nAmbulance = 998\n CoastGuard = 996";
+            if (arabic == false) { Box.Text = "Police = 999\nAmbulance = 998\n CoastGuard = 996"; }
+            else { Box.Text = "الشرطة = 999\nالإسعاف = 998\nخفر السواحل = 996"; }
         }
 
         private void GBPButton_Clicked(object sender, EventArgs e)
         {
             try { Convert.ToDouble(input); }
-            catch (Exception) { errors++; Box.Text = "Number Too Big"; input = ""; return; }
+            catch (Exception) { errors++; if (arabic == false) { Box.Text = "Number Too Big"; } else { Box.Text = "الرقم كبير جدًا"; } input = ""; return; }
           
             double dbu = 0;
 
             dbu = Convert.ToDouble(input) / 4.49;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
-            Box.Text =  "That's About " + cultures;
+            if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
             input = "";
 
         }
