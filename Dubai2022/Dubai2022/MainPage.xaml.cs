@@ -23,6 +23,7 @@ namespace Dubai2022
         bool before = false;
         bool dev = false;
         bool BST = false;
+        bool arabic = false;
         
 
         Int64 flighttime = 0;
@@ -270,7 +271,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.41;
+            dbu = Convert.ToDouble(input) / 4.49;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             Box.Text =  "That's About " + cultures;
             input = "";
@@ -313,9 +314,54 @@ namespace Dubai2022
         private void FlipButton_Clicked(object sender, EventArgs e)
         {
             input = "";
-            Random random = new Random(); int rng = random.Next(1, 3);
-            if(rng == 1) { Box.Text = "Heads"; }
-            else { Box.Text = "Tails"; }
+            arabic = !arabic;
+
+            if(arabic == false)
+            {
+
+                #region Buttonchange
+                Button1.Text = "1";
+                Button2.Text = "2";
+                Button3.Text = "3";
+                Button4.Text = "4";
+                Button5.Text = "5";
+                Button6.Text = "6";
+                Button7.Text = "7";
+                Button8.Text = "8";
+                Button9.Text = "9";
+                Button0.Text = "0";
+
+                ButtonDel.Text = "Del";
+                FlyDayButton.Text = "Flight";
+                TimeButton.Text = "Time";
+                SOSButton.Text = "SOS";
+                GBPButton.Text = "GBP";
+                SleepButton.Text = "Sleep";
+                FlipButton.Text = "عربي";
+                #endregion
+            }
+            else
+            {
+                #region Buttonchange
+                Button1.Text = "واحد";
+                Button2.Text = "اثنين";
+                Button3.Text = "ثلاثة";
+                Button4.Text = "أربعة";
+                Button5.Text = "خمسة";
+                Button6.Text = "ستة";
+                Button7.Text = "سبعة";
+                Button8.Text = "ثمانية";
+                Button9.Text = "تسع";
+                Button0.Text = "ض";
+                ButtonDel.Text = "ديل";
+                FlyDayButton.Text = "طيران";
+                TimeButton.Text = "زمن";
+                SOSButton.Text = "SOS";
+                GBPButton.Text = "GBP";
+                SleepButton.Text = "ينام";
+                FlipButton.Text = "English";
+                #endregion
+            }
         }
 
         private void SleepButton_Clicked(object sender, EventArgs e)
@@ -323,8 +369,8 @@ namespace Dubai2022
             input = "";
             if (!sleep.IsRunning) 
             {
-                Box.Text = "Goodnight";
-                SleepButton.Text = "Stop";
+                if (arabic == false) { Box.Text = "Goodnight"; } else { Box.Text = "تصبح على خير"; }
+                if (arabic == false) { SleepButton.Text = "Stop"; } else { SleepButton.Text = "قف"; }
                 BackgroundImageSource = "Backround4appnight.png";
                 sleep.Start();
                 #region ButtonColor
@@ -352,14 +398,18 @@ namespace Dubai2022
             else
             { 
                 sleep.Stop();
-                Box.Text = "Good Morning\n";
+                if (arabic == false) { Box.Text = "Good Morning\n"; } else { Box.Text = "صباح الخير\n"; }
                 sleephours = sleep.ElapsedMilliseconds / 1000; sleephours /= 60;
 
                 TimeSpan spWorkMin = TimeSpan.FromMinutes(sleephours);
                 string workHours = spWorkMin.ToString(@"hh\:mm");
-                Box.Text += "You Slept " + workHours;
-                Box.Text += "\nYou took " + Convert.ToInt32(sleephours * 16) + " Breaths";
-                SleepButton.Text = "Sleep";
+
+                if (arabic == false) { Box.Text += "You Slept "; } else { Box.Text += "أنت نمت "; } Box.Text += workHours;
+
+                sleephours = Convert.ToInt32(sleephours * 16);
+                if(arabic == false) { Box.Text += "\nYou took " + sleephours + " Breaths"; } else { Box.Text += "\nلقد أخذت" + sleephours + " بري"; }
+
+                if (arabic == false) { SleepButton.Text = "Sleep"; } else { SleepButton.Text = "ينام"; }
 
                 int hour = DateTime.Now.Hour;
 
