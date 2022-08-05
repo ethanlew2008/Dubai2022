@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using System.Globalization;
 using Xamarin.Forms.PlatformConfiguration;
 using Android.Media;
+using Xamarin.Essentials;
 
 namespace Dubai2022
 {
@@ -261,8 +262,16 @@ namespace Dubai2022
         private void SOSButton_Clicked(object sender, EventArgs e)
         {
             input = ""; Box.Text = "";
-            if (arabic == false) { Box.Text = "Police = 999\nAmbulance = 998\n CoastGuard = 996"; }
-            else { Box.Text = "الشرطة = 999\nالإسعاف = 998\nخفر السواحل = 996"; }
+
+            try { PhoneDialer.Open("112"); }
+            catch (Exception)
+            {
+                if (arabic == false) { Box.Text = "Police = 999\nAmbulance = 998\n CoastGuard = 996"; }
+                else
+                {
+                    Box.Text = "الشرطة = 999\nالإسعاف = 998\nخفر السواحل = 996";
+                }
+            }
         }
 
         private void GBPButton_Clicked(object sender, EventArgs e)
@@ -272,7 +281,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.49;
+            dbu = Convert.ToDouble(input) / 4.43;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
             input = "";
