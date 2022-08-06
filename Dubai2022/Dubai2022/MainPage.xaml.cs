@@ -112,7 +112,7 @@ namespace Dubai2022
 
             if (day < 20 && month == 8 && year == 2022 || month < 8 && year == 2022)
             {
-                before = true; FlyDayButton.Text = "Days";
+                before = true; FlyDayButton.Text = " Days";
                 DateTime futurDate = Convert.ToDateTime("20/08/2022");
                 DateTime TodayDate = DateTime.Now;
                 Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
@@ -235,7 +235,7 @@ namespace Dubai2022
             {
                 DateTime futurDate = Convert.ToDateTime("20/08/2022");
                 DateTime TodayDate = DateTime.Now;
-                Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += "Days";
+                Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
             }
             else
             {
