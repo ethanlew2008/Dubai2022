@@ -281,7 +281,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.43;
+            dbu = Convert.ToDouble(input) / 4.45;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
             input = "";
