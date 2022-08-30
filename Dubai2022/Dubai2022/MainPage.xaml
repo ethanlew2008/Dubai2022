@@ -39,7 +39,7 @@
             <Button Grid.Row="3" Grid.Column="1" Text="0" x:Name="Button0" Clicked="Button0_Clicked" CornerRadius="20" BackgroundColor="Orange" BorderColor="Black" BorderWidth="1" TextColor="White"/>
             <Button Grid.Row="3" Grid.Column="2" Text="Del" x:Name="ButtonDel" Clicked="ButtonDel_Clicked" CornerRadius="20" BackgroundColor="Orange" BorderColor="Black" BorderWidth="1" TextColor="White"/>
 
-            <Button Grid.Row="5" Grid.Column="0" Text="" x:Name="FlyDayButton" Clicked="FlyDayButton_Clicked" CornerRadius="20" BackgroundColor="Orange" BorderColor="Black" BorderWidth="1" TextColor="White"/>
+            <Button Grid.Row="5" Grid.Column="0" Text="Flight" x:Name="FlyDayButton" Clicked="FlyDayButton_Clicked" CornerRadius="20" BackgroundColor="Orange" BorderColor="Black" BorderWidth="1" TextColor="White"/>
             <Button Grid.Row="5" Grid.Column="1" Text="SOS" x:Name="SOSButton" Clicked="SOSButton_Clicked" CornerRadius="5" BackgroundColor="Red" BorderColor="Black" BorderWidth="1" TextColor="White"/>
             <Button Grid.Row="5" Grid.Column="2" Text="GBP" x:Name="GBPButton" Clicked="GBPButton_Clicked" CornerRadius="20" BackgroundColor="Orange" BorderColor="Black" BorderWidth="1" TextColor="White"/>
             <Button Grid.Row="6" Grid.Column="0" Text="Time" x:Name="TimeButton" Clicked="TimeButton_Clicked" CornerRadius="20" BackgroundColor="Orange" BorderColor="Black" BorderWidth="1" TextColor="White"/>

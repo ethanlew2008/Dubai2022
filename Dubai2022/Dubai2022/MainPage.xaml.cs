@@ -103,22 +103,6 @@ namespace Dubai2022
                 #endregion
                 BackgroundImageSource = "Backround4appnight.png";
             }
-
-
-
-             day = DateTime.Now.Day;
-             month = DateTime.Now.Month;
-             year = DateTime.Now.Year;
-
-            if (day < 20 && month == 8 && year == 2022 || month < 8 && year == 2022)
-            {
-                before = true; FlyDayButton.Text = " Days";
-                DateTime futurDate = Convert.ToDateTime("20/08/2022");
-                DateTime TodayDate = DateTime.Now;
-                Box.Text += Convert.ToInt32((futurDate - TodayDate).TotalDays); Box.Text += " Days";
-            }
-            else if(month > 8 && day > 28) {FlyDayButton.Text = "Flight"; }
-            else if(year == 2022 && month == 8 && day > 19 && day < 28) {FlyDayButton.Text = "Flight"; }
         }
 
          
@@ -281,7 +265,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.42;
+            dbu = Convert.ToDouble(input) / 4.28;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
             input = "";
@@ -321,9 +305,7 @@ namespace Dubai2022
             Box.Text += dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
 
             if (arabic == false) { Box.Text += "\nLondon:"; } else { Box.Text += "\nلندن:"; }
-            Box.Text += londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
-            
-
+            Box.Text += londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }            
 
         }
 
