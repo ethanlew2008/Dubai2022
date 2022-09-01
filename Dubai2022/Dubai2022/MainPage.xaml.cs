@@ -48,7 +48,7 @@ namespace Dubai2022
         int londonhour = 0;
 
         int day = 0;
-        int month = 0;
+        int month = DateTime.Now.Month;
         int year = 0;
 
         public MainPage()
@@ -265,7 +265,7 @@ namespace Dubai2022
           
             double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.28;
+            dbu = Convert.ToDouble(input) / 4.26;
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
             input = "";
