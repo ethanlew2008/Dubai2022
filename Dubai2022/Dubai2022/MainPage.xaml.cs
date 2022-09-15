@@ -11,7 +11,7 @@ using System.Globalization;
 using Xamarin.Forms.PlatformConfiguration;
 using Android.Media;
 using Xamarin.Essentials;
-
+using System.Net.Http;
 namespace Dubai2022
 {
     
@@ -25,7 +25,7 @@ namespace Dubai2022
         bool dev = false;
         bool BST = false;
         bool arabic = false;
-        
+     
 
         Int64 flighttime = 0;
 
@@ -35,7 +35,8 @@ namespace Dubai2022
         int delpress = 0;
         int delpress2 = 0;
 
-        
+        APIClient Client = new APIClient();
+
         Stopwatch flight = new Stopwatch();
         Stopwatch deldouble = new Stopwatch();
         Stopwatch sleep = new Stopwatch(); double sleephours = 0;
@@ -54,6 +55,7 @@ namespace Dubai2022
         public MainPage()
         {
             InitializeComponent();
+            Client.GetGBP();
 
             if (hour > 7 && hour < 19)
             {       
@@ -103,6 +105,8 @@ namespace Dubai2022
                 #endregion
                 BackgroundImageSource = "Backround4appnight.png";
             }
+
+            
         }
 
          
@@ -262,10 +266,15 @@ namespace Dubai2022
         {
             try { Convert.ToDouble(input); }
             catch (Exception) { errors++; if (arabic == false) { Box.Text = "Number Too Big"; } else { Box.Text = "الرقم كبير جدًا"; } input = ""; return; }
-          
-            double dbu = 0;
 
-            dbu = Convert.ToDouble(input) / 4.26;
+            double dbu = Convert.ToDouble(input);
+            if (Client.varsyr == null) { dbu = Convert.ToDouble(input) / 4.21; }
+            else { dbu *= Convert.ToDouble(Client.varsyr); }
+            dbu = Math.Round(dbu, 2);
+
+
+
+            
             string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
             if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
             input = "";
