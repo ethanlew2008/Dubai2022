@@ -9,7 +9,6 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using System.Globalization;
 using Xamarin.Forms.PlatformConfiguration;
-using Android.Media;
 using Xamarin.Essentials;
 using System.Net.Http;
 namespace Dubai2022
@@ -23,7 +22,6 @@ namespace Dubai2022
 
         bool before = false;
         bool dev = false;
-        bool BST = false;
         bool arabic = false;
      
 
@@ -43,19 +41,13 @@ namespace Dubai2022
         TimeSpan spWorkMin;
         string workHours;
 
-        int min = DateTime.Now.Minute;
-        int hours = DateTime.Now.Hour;
-        int dubaihour = 0;
-        int londonhour = 0;
 
-        int day = 0;
-        int month = DateTime.Now.Month;
-        int year = 0;
 
         public MainPage()
         {
             InitializeComponent();
             Client.GetGBP();
+            TimeFuntion();
 
             if (hour > 7 && hour < 19)
             {       
@@ -79,7 +71,7 @@ namespace Dubai2022
                 FlipButton.BackgroundColor = Color.Orange;
                 SleepButton.BackgroundColor = Color.Orange;
                 #endregion
-                BackgroundImageSource = "Backround4app1.png";               
+                BackgroundColor = Color.SandyBrown;        
             }
             else
             {
@@ -103,7 +95,7 @@ namespace Dubai2022
                 FlipButton.BackgroundColor = Color.MediumPurple;
                 SleepButton.BackgroundColor = Color.MediumPurple;
                 #endregion
-                BackgroundImageSource = "Backround4appnight.png";
+                BackgroundColor = Color.MediumPurple;               
             }
 
             
@@ -268,54 +260,42 @@ namespace Dubai2022
             catch (Exception) { errors++; if (arabic == false) { Box.Text = "Number Too Big"; } else { Box.Text = "الرقم كبير جدًا"; } input = ""; return; }
 
             double dbu = Convert.ToDouble(input);
-            if (Client.varsyr == null) { dbu = Convert.ToDouble(input) / 4.21; }
-            else { dbu *= Convert.ToDouble(Client.varsyr); }
+            if (Client.varsyr == null) { dbu = Convert.ToDouble(input) / 4.63; }
+            else { dbu /= Convert.ToDouble(Client.varsyr); }
             dbu = Math.Round(dbu, 2);
-
-
-
-            
-            string cultures = dbu.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-GB"));
-            if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += cultures;
+                    
+            if (arabic == false) { Box.Text = "That's About "; } else { Box.Text = "هذا حول "; } Box.Text += dbu + " AED";
             input = "";
 
         }
 
         private void TimeButton_Clicked(object sender, EventArgs e)
         {
+            TimeFuntion();
+        }
+
+        public void TimeFuntion()
+        {
             Box.Text = "";
             input = "";
-            int min = DateTime.Now.Minute;
-            string minstring = "";
 
-            if (month >= 3 && month <= 10) { BST = true; }
-
-            if (BST)
+            if (!arabic)
             {
-                if (before) { londonhour = DateTime.Now.Hour; dubaihour = londonhour + 3; }
-                else { dubaihour = DateTime.Now.Hour; londonhour = dubaihour - 3; }
+                if (DateTime.UtcNow.Month > 10 || DateTime.UtcNow.Month < 3) { Box.Text = "London: " + DateTime.UtcNow.ToString("HH:mm") + "\n"; } else { Box.Text = "London: " + DateTime.UtcNow.AddHours(1).ToString("HH:mm") + "\n"; }
+                if (DateTime.UtcNow.Month > 10 || DateTime.UtcNow.Month < 3) { Box.Text += "\nDubai: " + DateTime.UtcNow.ToString("HH:mm"); } else { Box.Text += "\nDubai: " + DateTime.UtcNow.AddHours(4).ToString("HH:mm"); }
             }
             else
             {
-                if (before) { londonhour = DateTime.Now.Hour; dubaihour = londonhour + 4; }
-                else { dubaihour = DateTime.Now.Hour; londonhour = dubaihour - 4; }
+                Box.Text = DateTime.UtcNow.AddHours(4).ToString("HH:mm") + "دبي:";
+                if (DateTime.UtcNow.Month > 10 || DateTime.UtcNow.Month < 3) { Box.Text += DateTime.UtcNow.ToString("HH:mm") + "لندن:"; } else { Box.Text += DateTime.UtcNow.AddHours(1).ToString("HH:mm") + "لندن:"; }
             }
-            
-            if(londonhour >= 24) { londonhour -= 24; }
-            if(dubaihour >= 24) { dubaihour -= 24; }
 
-            if (min.ToString().Length == 1 && min >= 10) { minstring = Convert.ToString(min) + "0"; }
-            if (min.ToString().Length == 1 && min < 10) { minstring = "0" + Convert.ToString(min); }
 
-            if (londonhour < 0) { londonhour *= -1; }
-            if (dubaihour < 0) { dubaihour *= -1; }
+            //if (arabic == false) { Box.Text += "Dubai:"; } else { Box.Text += "دبي:"; }
+            //Box.Text += dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
 
-            if (arabic == false) { Box.Text += "Dubai:"; } else { Box.Text += "دبي:"; }
-            Box.Text += dubaihour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }
-
-            if (arabic == false) { Box.Text += "\nLondon:"; } else { Box.Text += "\nلندن:"; }
-            Box.Text += londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; }            
-
+            //if (arabic == false) { Box.Text += "\nLondon:"; } else { Box.Text += "\nلندن:"; }
+            //Box.Text += londonhour + ":"; if (minstring == "") { Box.Text += min; } else { Box.Text += minstring; } 
         }
 
         private void FlipButton_Clicked(object sender, EventArgs e)
